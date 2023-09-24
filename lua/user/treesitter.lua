@@ -12,11 +12,17 @@ local M = {
       "nvim-tree/nvim-web-devicons",
       event = "VeryLazy",
     },
-  },
+  }
 }
 function M.config()
   local treesitter = require "nvim-treesitter"
   local configs = require "nvim-treesitter.configs"
+
+  -- quarto files have no associated parser. This asssociates it with a r 
+  -- parser allowing us to disable it below. This allows for Nvim-R syntax to 
+  -- be used
+  local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername
+  ft_to_parser.quarto = "r"
 
   configs.setup {
     ensure_installed = { "lua", "markdown", "markdown_inline", "bash", "python" }, -- put the language you want in this array
@@ -26,7 +32,7 @@ function M.config()
 
     highlight = {
       enable = true,       -- false will disable the whole extension
-      disable = { "css" }, -- list of language that will be disabled
+      disable = { "css", "r" }, -- list of languages (parsers) that will be disabled
     },
     autopairs = {
       enable = true,
