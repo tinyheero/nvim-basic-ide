@@ -21,8 +21,7 @@ function M.config()
   -- quarto files have no associated parser. This asssociates it with a r 
   -- parser allowing us to disable it below. This allows for Nvim-R syntax to 
   -- be used
-  local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername
-  ft_to_parser.quarto = "r"
+  vim.treesitter.language.register("r", "quarto")
 
   configs.setup {
     ensure_installed = { "lua", "markdown", "markdown_inline", "bash", "python" }, -- put the language you want in this array
